@@ -20,4 +20,22 @@ const addPost = async (post) => {
   }
 }
 
-export { getPosts, addPost }
+const getPostById = async (id) => {
+  try {
+    const res = await axios.get(`${baseUrl}/${id}`)
+    const data = await res.data
+    return data
+  } catch (error) {
+    return error
+  }
+}
+
+const deletePost = async (id) => {
+  try {
+    return await axios.delete(`${baseUrl}/${id}`)
+  } catch (error) {
+    return error
+  }
+}
+
+export { getPosts, addPost, getPostById, deletePost }
