@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap'
 import Navigation from './components/Navigation/Navigation'
 import CreatePost from './components/CreatePost/CreatePost'
 import ListPost from './components/ListPost/ListPost'
+import PostDetails from './components/PostDetails/PostDetails'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Container>
         <Route path="/" exact component={ListPost} />
         <Route path="/createPost" component={CreatePost} />
+        <Route path="/postDetails" component={PostDetails} />
       </Container>
     </Router>
   )
