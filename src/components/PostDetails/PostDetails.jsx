@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {
+  Card,
+  Col
+} from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
+import { getPostById } from '../../services/post.service'
 
 const PostDetails = () => {
+  const [data, setData] = useState([])
+  const { id } = useParams()
+
+  const listPosts = async () => {
+    const res = await getPostById(id)
+    setData(res)
+  }
+
+  useEffect(() => {
+    listPosts()
+  }, [])
+
   return (
-    <div>
-      <h2>post details</h2>
-    </div>
+    <Col className="my-4">
+      <Card className="text-center">
+        <Card.Header>{data.title}</Card.Header>
+        <Card.Body>
+          <Card.Text>
+            {data.body}
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
   )
 }
 
