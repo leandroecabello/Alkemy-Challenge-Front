@@ -1,22 +1,21 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Col, Container, ListGroup, Row
 } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import './ListPost.css'
+import { getPosts } from '../../services/post.service'
 
 const ListPost = () => {
   const [posts, setPosts] = useState([])
 
-  const getPosts = async () => {
-    const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    const data = await res.data
+  const listPosts = async () => {
+    const data = await getPosts()
     setPosts(data)
   }
 
   useEffect(() => {
-    getPosts()
+    listPosts()
   }, [])
 
   return (
@@ -28,7 +27,7 @@ const ListPost = () => {
               posts.map((post) => {
                 return (
                   <ListGroup.Item as="li" key={post.id}>
-                    <Link className="linkTitle" to="/">{post.title}</Link>
+                    <Link className="linkTitle" to="/postDetails">{post.title}</Link>
                   </ListGroup.Item>
                 )
               })
