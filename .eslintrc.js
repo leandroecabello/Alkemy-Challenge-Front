@@ -17,6 +17,7 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'jsx-quotes': ['error', 'prefer-double'],
     'linebreak-style': 0,
-    'arrow-body-style': ['error', 'always']
+    'arrow-body-style': ['error', 'always'],
+    semi: ['error', 'never']
   }
-};
+}
