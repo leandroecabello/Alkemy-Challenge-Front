@@ -1,5 +1,6 @@
 .list-group-item:hover {
     background: #1266F1;
+    cursor: pointer;
 }
 
 .linkTitle {
