@@ -1,22 +1,18 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import Navigation from './components/Navigation/Navigation'
-import CreatePost from './components/CreatePost/CreatePost'
-import ListPost from './components/ListPost/ListPost'
-import PostDetails from './components/PostDetails/PostDetails'
+import Router from './router/Router'
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Navigation />
       <Container>
-        <Route path="/" exact component={ListPost} />
-        <Route path="/createPost" component={CreatePost} />
-        <Route path="/postDetails" component={PostDetails} />
+        <Router />
       </Container>
-    </Router>
+    </BrowserRouter>
   )
 }
 
