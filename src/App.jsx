@@ -1,11 +1,21 @@
-import React from 'react';
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Container } from 'react-bootstrap'
+import Navigation from './components/Navigation/Navigation'
+import CreatePost from './components/CreatePost/CreatePost'
+import ListPost from './components/ListPost/ListPost'
 
 function App() {
   return (
-    <div className="app">
-      <h1>Challenge-Front</h1>
-    </div>
-  );
+    <Router>
+      <Navigation />
+      <Container>
+        <Route path="/" exact component={ListPost} />
+        <Route path="/createPost" component={CreatePost} />
+      </Container>
+    </Router>
+  )
 }
 
-export default App;
+export default App
