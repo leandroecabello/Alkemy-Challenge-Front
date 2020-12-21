@@ -1,25 +1,29 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import {
   Button, Card, Col, Form
 } from 'react-bootstrap'
+import { addPost } from '../../services/post.service'
 
 const CreatePost = () => {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const [post, setPost] = useState({
+    title: '',
+    body: ''
+  })
 
-  const addPost = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setPost({ ...post, [name]: value })
+  }
+
+  const createPost = async (e) => {
     e.preventDefault()
 
     const newPost = {
-      title,
-      body: description
+      title: post.title,
+      body: post.body
     }
 
-    await axios.post('https://jsonplaceholder.typicode.com/posts', newPost)
-
-    setTitle('')
-    setDescription('')
+    await addPost(newPost)
   }
 
   return (
@@ -27,23 +31,25 @@ const CreatePost = () => {
       <Card className="text-center">
         <Card.Body>
           <Card.Title>Create Post</Card.Title>
-          <Form className="my-4" onSubmit={addPost}>
+          <Form className="my-4" onSubmit={createPost}>
             <Form.Group>
               <Form.Control
                 type="text"
+                name="title"
                 placeholder="Title"
-                onChange={(e) => { return setTitle(e.target.value) }}
-                value={title}
+                onChange={handleChange}
+                value={post.title}
                 required
               />
             </Form.Group>
             <Form.Group>
               <Form.Control
                 as="textarea"
+                name="body"
                 rows={3}
                 placeholder="Description"
-                onChange={(e) => { return setDescription(e.target.value) }}
-                value={description}
+                onChange={handleChange}
+                value={post.body}
                 required
               />
             </Form.Group>
