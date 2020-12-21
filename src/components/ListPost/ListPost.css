@@ -1,0 +1,13 @@
+.list-group-item:hover {
+    background: #1266F1;
+}
+
+.linkTitle {
+    text-decoration: none;
+    color: #333333;
+}
+
+.list-group-item:hover .linkTitle {
+    text-decoration: none;
+    color: #ffffff;
+}
