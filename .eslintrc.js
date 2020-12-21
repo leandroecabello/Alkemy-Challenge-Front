@@ -5,9 +5,7 @@ module.exports = {
   },
   extends: ['airbnb', 'eslint:recommended', 'plugin:react/recommended'],
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
+    ecmaFeatures: { jsx: true },
     ecmaVersion: 12,
     sourceType: 'module'
   },
@@ -18,6 +16,7 @@ module.exports = {
     'jsx-quotes': ['error', 'prefer-double'],
     'linebreak-style': 0,
     'arrow-body-style': ['error', 'always'],
+    'object-curly-newline': ['error', { multiline: true }],
     semi: ['error', 'never']
   }
 }
