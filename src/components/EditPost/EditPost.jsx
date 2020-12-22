@@ -3,7 +3,7 @@ import React from 'react'
 const EditPost = () => {
   return (
     <div>
-        Edit post
+      <h2>Edit Post</h2>
     </div>
   )
 }
