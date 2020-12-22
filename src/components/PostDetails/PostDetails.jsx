@@ -10,13 +10,13 @@ const PostDetails = () => {
   const [data, setData] = useState([])
   const { id } = useParams()
 
-  const listPosts = async () => {
+  const postDetail = async () => {
     const res = await getPostById(id)
     setData(res)
   }
 
   useEffect(() => {
-    listPosts()
+    postDetail()
   }, [])
 
   return (
