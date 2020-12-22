@@ -30,6 +30,14 @@ const getPostById = async (id) => {
   }
 }
 
+const updatePost = async (id, post) => {
+  try {
+    return await axios.put(`${baseUrl}/${id}`, post)
+  } catch (error) {
+    return error
+  }
+}
+
 const deletePost = async (id) => {
   try {
     return await axios.delete(`${baseUrl}/${id}`)
@@ -38,4 +46,4 @@ const deletePost = async (id) => {
   }
 }
 
-export { getPosts, addPost, getPostById, deletePost }
+export { getPosts, addPost, getPostById, deletePost, updatePost }
