@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Col, ListGroup, Row } from 'react-bootstrap'
 import './ListPost.css'
-import { TrashFill, PencilFill } from 'react-bootstrap-icons'
+import { TrashFill, PencilFill, EyeFill } from 'react-bootstrap-icons'
 import { getPosts, deletePost } from '../../services/post.service'
 
 const ListPost = () => {
@@ -38,8 +38,14 @@ const ListPost = () => {
                       {post.title}
                     </Link>
                     <Link
+                      className="btn btn-primary btn-sm float-right"
+                      to={`/${post.id}`}
+                    >
+                      <EyeFill />
+                    </Link>
+                    <Link
                       variant="primary"
-                      className="btn btn-warning btn-sm float-right"
+                      className="btn btn-warning btn-sm float-right mr-2"
                       to={`/edit/${post.id}`}
                     >
                       <PencilFill />

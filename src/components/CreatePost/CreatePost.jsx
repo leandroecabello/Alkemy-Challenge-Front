@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Card, Col, Form } from 'react-bootstrap'
-import { getPosts, addPost } from '../../services/post.service'
+import { addPost } from '../../services/post.service'
 
 const CreatePost = () => {
-  const [posts, setPosts] = useState([])
   const [post, setPost] = useState({
     title: '',
     body: ''
   })
-
-  const listPosts = async () => {
-    const data = await getPosts()
-    setPosts(data)
-  }
-
-  useEffect(() => {
-    listPosts()
-  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -31,16 +21,14 @@ const CreatePost = () => {
       body: post.body
     }
 
-    const res = await addPost(newPost)
-    setPosts([
-      ...posts,
-      { ...newPost, id: res.data.id }
-    ])
+    await addPost(newPost)
 
     setPost({
       title: '',
       body: ''
     })
+
+    window.location.href = '/'
   }
 
   return (
