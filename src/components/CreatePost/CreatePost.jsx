@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
-import {
-  Button, Card, Col, Form
-} from 'react-bootstrap'
-import { addPost } from '../../services/post.service'
+import React, { useEffect, useState } from 'react'
+import { Button, Card, Col, Form } from 'react-bootstrap'
+import { getPosts, addPost } from '../../services/post.service'
 
 const CreatePost = () => {
+  const [posts, setPosts] = useState([])
   const [post, setPost] = useState({
     title: '',
     body: ''
   })
+
+  const listPosts = async () => {
+    const data = await getPosts()
+    setPosts(data)
+  }
+
+  useEffect(() => {
+    listPosts()
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -23,14 +31,25 @@ const CreatePost = () => {
       body: post.body
     }
 
-    await addPost(newPost)
+    const res = await addPost(newPost)
+    setPosts([
+      ...posts,
+      { ...newPost, id: res.data.id }
+    ])
+
+    setPost({
+      title: '',
+      body: ''
+    })
   }
 
   return (
     <Col className="my-4" md={{ span: 4, offset: 4 }}>
       <Card className="text-center">
         <Card.Body>
-          <Card.Title>Create Post</Card.Title>
+          <Card.Title>
+            Create Post
+          </Card.Title>
           <Form className="my-4" onSubmit={createPost}>
             <Form.Group>
               <Form.Control
