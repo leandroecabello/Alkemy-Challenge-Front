@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Form } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { getPostById, updatePost } from '../../services/post.service'
 
 const EditPost = () => {
@@ -9,6 +10,8 @@ const EditPost = () => {
     title: '',
     body: ''
   })
+
+  const { register, errors, handleSubmit } = useForm()
 
   const getPost = async () => {
     const res = await getPostById(id)
@@ -27,8 +30,7 @@ const EditPost = () => {
     setData({ ...data, [name]: value })
   }
 
-  const editPost = async (e) => {
-    e.preventDefault()
+  const editPost = async () => {
     await updatePost(id, data)
     setData({
       title: '',
@@ -45,7 +47,7 @@ const EditPost = () => {
           <Card.Title>
             Edit Post
           </Card.Title>
-          <Form className="my-4" onSubmit={editPost}>
+          <Form className="my-4" onSubmit={handleSubmit(editPost)}>
             <Form.Group>
               <Form.Control
                 type="text"
@@ -53,8 +55,18 @@ const EditPost = () => {
                 placeholder="Title"
                 onChange={handleChange}
                 value={data.title}
-                required
+                ref={
+                  register({
+                    required: {
+                      value: true,
+                      message: 'Title is required'
+                    }
+                  })
+                }
               />
+              <span className="text-danger text-small d-block mb-2">
+                {errors?.title?.message}
+              </span>
             </Form.Group>
             <Form.Group>
               <Form.Control
@@ -64,8 +76,18 @@ const EditPost = () => {
                 placeholder="Description"
                 onChange={handleChange}
                 value={data.body}
-                required
+                ref={
+                  register({
+                    required: {
+                      value: true,
+                      message: 'Description is required'
+                    }
+                  })
+                }
               />
+              <span className="text-danger text-small d-block mb-2">
+                {errors?.body?.message}
+              </span>
             </Form.Group>
             <Button variant="primary" type="submit">
               Edit

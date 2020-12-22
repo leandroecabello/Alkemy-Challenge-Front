@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, Col, Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
 import { addPost } from '../../services/post.service'
 
 const CreatePost = () => {
@@ -8,14 +9,14 @@ const CreatePost = () => {
     body: ''
   })
 
+  const { register, errors, handleSubmit } = useForm()
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setPost({ ...post, [name]: value })
   }
 
-  const createPost = async (e) => {
-    e.preventDefault()
-
+  const createPost = async () => {
     const newPost = {
       title: post.title,
       body: post.body
@@ -38,7 +39,7 @@ const CreatePost = () => {
           <Card.Title>
             Create Post
           </Card.Title>
-          <Form className="my-4" onSubmit={createPost}>
+          <Form className="my-4" onSubmit={handleSubmit(createPost)}>
             <Form.Group>
               <Form.Control
                 type="text"
@@ -46,8 +47,18 @@ const CreatePost = () => {
                 placeholder="Title"
                 onChange={handleChange}
                 value={post.title}
-                required
+                ref={
+                  register({
+                    required: {
+                      value: true,
+                      message: 'Title is required'
+                    }
+                  })
+                }
               />
+              <span className="text-danger text-small d-block mb-2">
+                {errors?.title?.message}
+              </span>
             </Form.Group>
             <Form.Group>
               <Form.Control
@@ -57,8 +68,18 @@ const CreatePost = () => {
                 placeholder="Description"
                 onChange={handleChange}
                 value={post.body}
-                required
+                ref={
+                  register({
+                    required: {
+                      value: true,
+                      message: 'Description is required'
+                    }
+                  })
+                }
               />
+              <span className="text-danger text-small d-block mb-2">
+                {errors?.body?.message}
+              </span>
             </Form.Group>
             <Button variant="primary" type="submit">
               Submit
